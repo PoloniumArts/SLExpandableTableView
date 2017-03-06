@@ -265,6 +265,15 @@ static BOOL protocol_containsSelector(Protocol *protocol, SEL selector)
     }
 }
 
+- (void)expandAllSections {
+    NSUInteger numberOfSections = [self.myDataSource numberOfSectionsInTableView:self];
+    for (NSUInteger section = 0; section < numberOfSections; section++) {
+        self.showingSectionsDictionary[@(section)] = @YES;
+    }
+    
+    [self reloadDataAndResetExpansionStates:NO];
+}
+
 - (void)collapseSection:(NSInteger)section animated:(BOOL)animated {
     NSNumber *key = @(section);
     if (![self.showingSectionsDictionary[key] boolValue]) {
